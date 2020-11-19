@@ -103,16 +103,16 @@
 /*--x----- GLOBAL CSS -----x--*/
 
 /*-------- MEDIA QUERY WITH MINIMUM WIDTH OF 600PX --------*/
-  /* @media (min-width: 600px) {
+  @media (min-width: 600px) {
     .container {
       padding: 0;
     }
-  } */
+  }
   /*--x----- MEDIA QUERY WITH MINIMUM WIDTH OF 600PX -----x--*/
  
   
 /*-------- MEDIA QUERY WITH MINIMUM WIDTH OF 700PX --------*/
-  /* @media (min-width: 700px) {
+  @media (min-width: 700px) {
     .wrapper {
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -121,22 +121,16 @@
       padding: 2em 2em;
     }
     
-  } */
+  }
 
  /*--x----- MEDIA QUERY WITH MINIMUM WIDTH OF 700PX -----x--*/
  
 /*-------- (MOBILE FIRST) MEDIA QUERY WITH MAXIMUM WIDTH OF 700PX --------*/
-   @media (max-width: 700px) {
-    
-     .container {     
-      max-width: 500px;
-     /* width: 100%; */
-      margin-left: auto;
-      margin-right: auto;
-      padding: 4em;
-    }
-  
+   @media (max-width: 700px) {      
      .wrapper {
+       
+       margin-left: -3em;
+       margin-right: -3em;
       display: grid;
       grid-template-columns: 2fr;
       justify-content: center;
@@ -150,4 +144,4 @@
   } 
 /*--x----- (MOBILE FIRST) MEDIA QUERY WITH MAXIMUM WIDTH OF 700PX -----x--*/
 
-
+  
