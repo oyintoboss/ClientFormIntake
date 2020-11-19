@@ -34,10 +34,10 @@
     margin-bottom: 3rem;
   }
   
-  input:focus,
+  /* input:focus,
   textarea:focus {
     outline: 3px solid rgba(0, 0, 0, 0.2);
-  }
+  } */
   
   input,
   textarea,
@@ -90,14 +90,17 @@
     padding: 1em;
   }
   
-  button {
-    background: lightgrey;
+  button {    
+    background: dimgray;
     width: 100%;
     font-size: 1.2em;
+    color: var( --Text-Color);
     border: 0;
   }
   button:hover, button:focus {
     background: var(--button__hover__color);
+    color: dimgray;
+    border: 2px solid dimgray;
     outline: 0;
   }
 
