@@ -134,7 +134,7 @@
     .wrapper {
       display: grid;
       grid-template-columns: 2fr;
-      justify-content: space-evenly;
+      justify-content: center;
     }
     /* .wrapper > * {
       padding: 2em 2em;
