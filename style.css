@@ -34,10 +34,6 @@
     margin-bottom: 3rem;
   }
   
-  /* input:focus,
-  textarea:focus {
-    outline: 3px solid rgba(0, 0, 0, 0.2);
-  } */
   
   input,
   textarea,
@@ -107,16 +103,16 @@
 /*--x----- GLOBAL CSS -----x--*/
 
 /*-------- MEDIA QUERY WITH MINIMUM WIDTH OF 600PX --------*/
-  @media (min-width: 600px) {
+  /* @media (min-width: 600px) {
     .container {
       padding: 0;
     }
-  }
+  } */
   /*--x----- MEDIA QUERY WITH MINIMUM WIDTH OF 600PX -----x--*/
  
   
 /*-------- MEDIA QUERY WITH MINIMUM WIDTH OF 700PX --------*/
-  @media (min-width: 700px) {
+  /* @media (min-width: 700px) {
     .wrapper {
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -125,24 +121,33 @@
       padding: 2em 2em;
     }
     
-  }
+  } */
 
  /*--x----- MEDIA QUERY WITH MINIMUM WIDTH OF 700PX -----x--*/
  
 /*-------- (MOBILE FIRST) MEDIA QUERY WITH MAXIMUM WIDTH OF 700PX --------*/
    @media (max-width: 700px) {
-    .wrapper {
+    
+     .container {     
+      max-width: 500px;
+     /* width: 100%; */
+      margin-left: auto;
+      margin-right: auto;
+      padding: 4em;
+    }
+  
+     .wrapper {
       display: grid;
       grid-template-columns: 2fr;
       justify-content: center;
     }
-    /* .wrapper > * {
+    .wrapper > * {
       padding: 2em 2em;
-    } */
+    } 
     .input-width {
       grid-column: 1 / 3;
-    }
+    } 
   } 
 /*--x----- (MOBILE FIRST) MEDIA QUERY WITH MAXIMUM WIDTH OF 700PX -----x--*/
 
-  
+
