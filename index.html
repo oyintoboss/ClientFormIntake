@@ -13,8 +13,10 @@
      <link rel="stylesheet" href="./fontawesome-free-5.15.1-web/css/all.min.css">
      <!--x----- FONT-AWESOME LINK -----x-->
 
+    
 </head>
 <body>
+  <!-- <button onclick="readAllClient()">Read All Client</button> -->
   <!-------- CONTAINER SECTION -------->
     <div class="container">
  <!-------- WRAPPER SECTION -------->
@@ -38,14 +40,15 @@
                         <i class="fas fa-question-circle" title="please enter the country for the full names of the party responsible for representing the company on this project."></i>
                     </span>
                     </label>
-                    <input type="text" required placeholder="Full Name" title="please enter the country for the full names of the party responsible for representing the company on this project.">
-              </p>
+                    <input type="text" onclick="fullnamefocus()" id="fullNamevalue" required placeholder="Full Name" title="please enter the country for the full names of the party responsible for representing the company on this project.">
+                    <span id="error" ></span> 
+                  </p>
               <p class="input-width">
                 <label for="companyname"> COMPANY NAME <span>
                     <i class="fas fa-question-circle" title="please enter the name of your company or entity that will be responsible for paying for your project work."></i>
                     </span>
                     </label>
-                    <input type="text" placeholder="Company Name" title="please enter the name of your company or entity that will be responsible for paying for your project work.">
+                    <input type="text" id="companyName" placeholder="Company Name" title="please enter the name of your company or entity that will be responsible for paying for your project work.">
                     
             </p>
             <p class="input-width">
@@ -54,7 +57,7 @@
                         <i class="fas fa-question-circle" title="please enter your website url here. If you don't have a website, please leave this field empty."></i>
                     </span>
                     </label>
-                    <input type="text" placeholder="Website" title="please enter your website url here. If you don't have a website, please leave this field empty.">
+                    <input type="text" id="website" placeholder="Website" title="please enter your website url here. If you don't have a website, please leave this field empty.">
                     
               </p>  
               <p class="input-width">
@@ -63,7 +66,7 @@
                         <i class="fas fa-question-circle" title="please enter your contact address or that of the responsible party responsible for your project."></i>
                     </span>
                     </label>
-                    <input type="text" placeholder="Address" title="please enter your contact address or that of the responsible party responsible for your project.">
+                    <input type="text" id="address" placeholder="Address" title="please enter your contact address or that of the responsible party responsible for your project.">
                    
               </p>
               <p class="input-width">
@@ -72,7 +75,7 @@
                     <i class="fas fa-question-circle" title="please enter the country for the state and postal code supplied above."></i>
                 </span>
                 </label>
-                <input type="text" placeholder="Country" title="please enter the country for the state and postal code supplied above.">
+                <input type="text" id="country" placeholder="Country" title="please enter the country for the state and postal code supplied above.">
                 </p>
              
               <p class="input-width">
@@ -81,7 +84,7 @@
                         <i class="fas fa-question-circle" title="please enter the state where the company or responsible party for this project resides in."></i>
                     </span>
                     </label>
-                    <input type="text" placeholder="State" title="please enter the state where the company or responsible party for this project resides in.">
+                    <input type="text" id="state" placeholder="State" title="please enter the state where the company or responsible party for this project resides in.">
                    
              </p>
              <p class="input-width">
@@ -90,7 +93,7 @@
                         <i class="fas fa-question-circle" title="please enter the name of the city where the company or the responsible party for this project resides."></i>
                     </span>
                     </label>
-                    <input type="text" placeholder="City" title="please enter the name of the city where the company or the responsible party for this project resides.">
+                    <input type="text" id="city" placeholder="City" title="please enter the name of the city where the company or the responsible party for this project resides.">
                    
               </p>                           
              <p class="input-width">
@@ -99,10 +102,10 @@
                         <i class="fas fa-question-circle" title="please enter the postal code for the address supplied."></i>
                     </span>
                     </label>
-                    <input type="text" placeholder="Postal Code" title="please enter the postal code for the address supplied.">                   
+                    <input type="text" id="postalCode" placeholder="Postal Code" title="please enter the postal code for the address supplied.">                   
              </p>                              
              <p class="full-width">
-                <button>SUBMIT</button>
+                <button id="btnsubmit" onclick="addClient()">SUBMIT</button>
               </p>
             </div>
           </div>
@@ -112,4 +115,121 @@
       </div>
   <!--x----- CONTAINER SECTION -----x-->
 </body>
+
+ <!-------- SQLITE CONNECTION USING INDEXED DB -------->
+ <script>
+
+  // In the following line, you should include the prefixes of implementations you want to test.
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+// DON'T use "var indexedDB = ..." if you're not in a function.
+// Moreover, you may need references to some window.IDB* objects:
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+// (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
+
+if(!window.indexedDB){
+window.alert("Your browser doesn't support a stable version of IndexedDB.");
+}
+
+var request = window.indexedDB.open("ClientIntakey", 1);
+
+const cif = [
+{id: "01", fullName: "Simon Peter", companyName: "ADB", website: "adb,ng", address: "4, Dress, University", country: "Ghana", state: "Alberta", city: "Mountain View", postalCode: "1234"},
+{id: "02", fullName: "Simon Peter2", companyName: "ADB2", website: "adb2.ng", address: "4, Dress, University2", country: "Ghana2", state: "Alberta2", city: "Mountain View2", postalCode: "1334"}
+];
+
+var db;
+
+request.onerror = function(e){
+console.log("error: ");
+};
+
+request.onsuccess = function(e){
+db = request.result;
+console.log("success: " + db);
+};
+
+request.onupgradeneeded = function(e){
+var db = e.target.result;
+var objectStore = db.createObjectStore("client", {keyPath: "id"});
+for(var i in cif){
+objectStore.add(cif[i]);
+}
+}
+
+function readAllClient(){
+var objectStore = db.transaction("client").objectStore("client");
+objectStore.openCursor().onsuccess = function(e){
+var cursor = e.target.result;
+if(cursor){
+alert("Name for id " + cursor.key + " Company Name; " + cursor.value.companyName);
+cursor.continue();
+}
+};
+}
+
+function fullnamefocus(){
+  var focusfullname = document.getElementById('fullNamevalue').focus();
+  if(focusfullname){
+    alert('First Name and Last Name are required');
+  }
+}
+
+function fullnameError(){
+  var error = document.getElementById('error');
+  var fullnameError = document.getElementById('fullNamevalue').value;
+  if(fullnameError === ""){
+    error.textContent = "Full Name must not be empty";
+    error.style.color = "red";
+  }
+  else{
+    error.textContent = "";
+  }
+}
+
+function addClient(){
+  fullnameError();
+  var fullnameID = document.getElementById('fullNamevalue').value;
+  var companyNameValue = document.getElementById('companyName').value;
+  var website = document.getElementById('website').value;
+  var address = document.getElementById('address').value;
+  var country = document.getElementById('country').value;
+  var state = document.getElementById('state').value;
+  var city = document.getElementById('city').value;
+  var postalcode = document.getElementById('postalCode').value;
+
+  if(fullnameID === ""){
+    alert("Full name must not be empty");
+  }
+
+  if(fullnameID.length <= 1){
+    alert("Full name must have more than one input");
+  }
+
+// console.log(fullnameID);
+// console.log(companyNameValue);
+// console.log(website);
+// console.log(address);
+// console.log(country);
+// console.log(state);
+// console.log(city);
+// console.log(postalcode);
+let id = 22;
+let increased_id = id++;
+console.log(increased_id);
+var request = db.transaction(["client"], "readwrite").objectStore("client")
+.add(
+{id: increased_id , fullName: "'"+fullnameID + "'", companyName: "'"+companyNameValue + "'", website: "'"+website + "'", address: "'"+address + "'", country: "'"+country + "'", state: "'"+state + "'", city: "'"+city + "'", postalCode: "'"+postalcode + "'"}
+);
+
+request.onsuccess = function(e){
+alert("Registered Successfully");
+};
+request.onerror = function(e){
+alert("Registration Not Successful");
+}
+}
+
+//  </script>
+<!--x----- SQLITE CONNECTION USING INDEXED DB -----x-->
 </html>
