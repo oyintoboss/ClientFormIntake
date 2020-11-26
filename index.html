@@ -41,8 +41,10 @@
                     </span>
                     </label>
                     <input type="text" onclick="fullnamefocus()" id="fullNamevalue" required placeholder="Full Name" title="please enter the country for the full names of the party responsible for representing the company on this project.">
-                    <span id="error" ></span> 
+                    <br>
+                    <span id="error" ></span>
                   </p>
+                 
               <p class="input-width">
                 <label for="companyname"> COMPANY NAME <span>
                     <i class="fas fa-question-circle" title="please enter the name of your company or entity that will be responsible for paying for your project work."></i>
@@ -131,7 +133,7 @@ if(!window.indexedDB){
 window.alert("Your browser doesn't support a stable version of IndexedDB.");
 }
 
-var request = window.indexedDB.open("ClientIntakey", 1);
+var request = window.indexedDB.open("CIF", 1);
 
 const cif = [
 {id: "01", fullName: "Simon Peter", companyName: "ADB", website: "adb,ng", address: "4, Dress, University", country: "Ghana", state: "Alberta", city: "Mountain View", postalCode: "1234"},
@@ -214,7 +216,7 @@ function addClient(){
 // console.log(state);
 // console.log(city);
 // console.log(postalcode);
-let id = 22;
+let id = 33;
 let increased_id = id++;
 console.log(increased_id);
 var request = db.transaction(["client"], "readwrite").objectStore("client")
